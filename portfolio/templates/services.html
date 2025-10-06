@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Services - {{ profile.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">My <span class="text-caramel">Services</span></h1>
+        <p class="lead text-muted">Professional services tailored to your needs</p>
+    </div>
+</section>
+
+<!-- Services Grid -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-{{ service.icon|default:'code-slash' }}"></i>
+                    </div>
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                    {% if service.features %}
+                    <div class="mt-3">
+                        <ul class="list-unstyled">
+                            {% for feature in service.features.splitlines %}
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-caramel me-2"></i>
+                                {{ feature }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No services available at the moment.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mb-3">Ready to Start Your Project?</h2>
+                <p class="lead text-muted mb-4">Let's discuss how I can help bring your vision to life</p>
+                <a href="{% url 'contact' %}" class="btn-caramel">Contact Me Today</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

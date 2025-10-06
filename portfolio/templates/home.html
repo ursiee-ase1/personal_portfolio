@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - {{ profile.name }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="hero-content">
+                    <h1>Hi, I'm <span class="text-caramel">{{ profile.name }}</span></h1>
+                    <p class="hero-tagline">{{ profile.tagline }}</p>
+                    <p class="lead mb-4">{{ profile.short_bio }}</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="{% url 'projects' %}" class="btn-caramel">View My Work</a>
+                        <a href="{% url 'contact' %}" class="btn-outline-caramel">Get In Touch</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="profile-image-container">
+                    {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}" class="profile-image">
+                    {% else %}
+                    <img src="{% static 'img/profile-placeholder.jpg' %}" alt="{{ profile.name }}" class="profile-image">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Preview -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">What I Do</h2>
+        <p class="section-subtitle">Services I offer to help bring your ideas to life</p>
+        <div class="row g-4">
+            {% for service in services|slice:":3" %}
+            <div class="col-md-6 col-lg-4">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="bi bi-{{ service.icon }}"></i>
+                    </div>
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description|truncatewords:20 }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'services' %}" class="btn-outline-caramel">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Projects -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">A selection of my recent work</p>
+        <div class="row g-4">
+            {% for project in featured_projects|slice:":3" %}
+            <div class="col-md-6 col-lg-4">
+                <div class="project-card">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image">
+                    {% else %}
+                    <img src="{% static 'img/project-placeholder.jpg' %}" alt="{{ project.title }}" class="project-image">
+                    {% endif %}
+                    <div class="project-overlay">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description|truncatewords:15 }}</p>
+                        {% if project.link %}
+                        <a href="{{ project.link }}" target="_blank" class="project-link">
+                            View Project <i class="bi bi-arrow-right"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'projects' %}" class="btn-outline-caramel">View All Projects</a>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+{% if testimonials %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">What Clients Say</h2>
+        <p class="section-subtitle">Testimonials from people I've worked with</p>
+        <div class="row g-4">
+            {% for testimonial in testimonials|slice:":3" %}
+            <div class="col-md-6 col-lg-4">
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <i class="bi bi-quote"></i>
+                    </div>
+                    {% if testimonial.image %}
+                    <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="testimonial-image">
+                    {% else %}
+                    <img src="{% static 'img/avatar-placeholder.jpg' %}" alt="{{ testimonial.name }}" class="testimonial-image">
+                    {% endif %}
+                    <p class="testimonial-text">"{{ testimonial.text }}"</p>
+                    <h5 class="testimonial-name">{{ testimonial.name }}</h5>
+                    <p class="testimonial-position">{{ testimonial.position }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-3">Let's Work Together</h2>
+        <p class="lead text-muted mb-4">Have a project in mind? Let's discuss how I can help you achieve your goals.</p>
+        <a href="{% url 'contact' %}" class="btn-caramel">Get Started</a>
+    </div>
+</section>
+{% endblock %}

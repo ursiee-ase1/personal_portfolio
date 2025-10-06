@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Projects - {{ profile.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">My <span class="text-caramel">Projects</span></h1>
+        <p class="lead text-muted">A showcase of my recent work and accomplishments</p>
+    </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-md-6 col-lg-4">
+                <div class="project-card">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-image">
+                    {% else %}
+                    <img src="{% static 'img/project-placeholder.jpg' %}" alt="{{ project.title }}" class="project-image">
+                    {% endif %}
+                    <div class="project-overlay">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description|truncatewords:20 }}</p>
+                        {% if project.technologies %}
+                        <div class="mb-3">
+                            {% for tech in project.technologies.split:',' %}
+                            <span class="badge bg-light text-dark me-1 mb-1">{{ tech|trim }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <div class="d-flex gap-2">
+                            {% if project.link %}
+                            <a href="{{ project.link }}" target="_blank" class="project-link">
+                                Live Demo <i class="bi bi-box-arrow-up-right"></i>
+                            </a>
+                            {% endif %}
+                            {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank" class="project-link">
+                                <i class="bi bi-github"></i> Code
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-folder2-open display-1 text-muted mb-3"></i>
+                <p class="text-muted">No projects available yet. Check back soon!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Additional Project Details (Optional Expanded View) -->
+{% if projects %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">Project Highlights</h2>
+        <div class="row g-4">
+            {% for project in projects|slice:":3" %}
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        {% if project.category %}
+                        <p class="mb-2">
+                            <span class="badge" style="background-color: var(--caramel);">{{ project.category }}</span>
+                        </p>
+                        {% endif %}
+                        {% if project.link %}
+                        <a href="{{ project.link }}" target="_blank" class="btn-caramel btn-sm">
+                            View Project <i class="bi bi-arrow-right"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-3">Like What You See?</h2>
+        <p class="lead text-muted mb-4">Let's collaborate on your next project</p>
+        <a href="{% url 'contact' %}" class="btn-caramel">Start a Project</a>
+    </div>
+</section>
+{% endblock %}

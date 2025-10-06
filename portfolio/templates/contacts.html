@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact - {{ profile.name }}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">Get In <span class="text-caramel">Touch</span></h1>
+        <p class="lead text-muted">I'd love to hear from you. Let's start a conversation!</p>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Contact Form -->
+            <div class="col-lg-7">
+                <div class="contact-form">
+                    <h3 class="mb-4">Send Me a Message</h3>
+                    
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Your Name *</label>
+                                <input type="text" class="form-control" id="name" name="name" required 
+                                       placeholder="John Doe">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Your Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" required 
+                                       placeholder="john@example.com">
+                            </div>
+                            <div class="col-12">
+                                <label for="subject" class="form-label">Subject *</label>
+                                <input type="text" class="form-control" id="subject" name="subject" required 
+                                       placeholder="Project Inquiry">
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label">Message *</label>
+                                <textarea class="form-control" id="message" name="message" required 
+                                          placeholder="Tell me about your project..."></textarea>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn-caramel w-100">
+                                    <i class="bi bi-send me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="col-lg-5">
+                <div class="mb-4">
+                    <h3 class="mb-4">Contact Information</h3>
+                    
+                    {% if profile.email %}
+                    <div class="contact-info-card mb-3">
+                        <div class="contact-info-icon">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <h4>Email</h4>
+                        <p>{{ profile.email }}</p>
+                        <a href="mailto:{{ profile.email }}" class="text-caramel">Send Email</a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if profile.phone %}
+                    <div class="contact-info-card mb-3">
+                        <div class="contact-info-icon">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <h4>Phone</h4>
+                        <p>{{ profile.phone }}</p>
+                        <a href="tel:{{ profile.phone }}" class="text-caramel">Call Now</a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if profile.location %}
+                    <div class="contact-info-card mb-3">
+                        <div class="contact-info-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <h4>Location</h4>
+                        <p>{{ profile.location }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Social Media Links -->
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4 class="mb-3">Connect With Me</h4>
+                        <div class="social-links justify-content-center">
+                            {% if profile.github %}
+                            <a href="{{ profile.github }}" target="_blank" class="social-icon" title="GitHub">
+                                <i class="bi bi-github"></i>
+                            </a>
+                            {% endif %}
+                            {% if profile.linkedin %}
+                            <a href="{{ profile.linkedin }}" target="_blank" class="social-icon" title="LinkedIn">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                            {% endif %}
+                            {% if profile.twitter %}
+                            <a href="{{ profile.twitter }}" target="_blank" class="social-icon" title="Twitter">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                            {% endif %}
+                            {% if profile.instagram %}
+                            <a href="{{ profile.instagram }}" target="_blank" class="social-icon" title="Instagram">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                            {% endif %}
+                            {% if profile.facebook %}
+                            <a href="{{ profile.facebook }}" target="_blank" class="social-icon" title="Facebook">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section (Optional) -->
+{% if profile.location %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-map display-1 text-caramel mb-3"></i>
+                <h3 class="mb-2">Based in {{ profile.location }}</h3>
+                <p class="text-muted">Available for remote and on-site projects</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
