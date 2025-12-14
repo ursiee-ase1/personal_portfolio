@@ -1,0 +1,5 @@
+﻿
+pillow @ file:///C:/b/abs_68t826txdy/croot/pillow_1744613085333/work
+tzdata @ file:///croot/python-tzdata_1746123641790/work
+
+

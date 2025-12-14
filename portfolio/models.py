@@ -49,6 +49,12 @@ class Project(models.Model):
     class Meta:
         ordering = ['-created_date']
     
+    def get_technologies_list(self):
+        """Return technologies as a list"""
+        if self.technologies:
+            return [tech.strip() for tech in self.technologies.split(',')]
+        return []
+    
     def __str__(self):
         return self.title
 

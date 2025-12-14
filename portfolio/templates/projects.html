@@ -29,8 +29,8 @@
                         <p>{{ project.description|truncatewords:20 }}</p>
                         {% if project.technologies %}
                         <div class="mb-3">
-                            {% for tech in project.technologies.split:',' %}
-                            <span class="badge bg-light text-dark me-1 mb-1">{{ tech|trim }}</span>
+                            {% for tech in project.get_technologies_list %}
+                            <span class="badge bg-light text-dark me-1 mb-1">{{ tech }}</span>
                             {% endfor %}
                         </div>
                         {% endif %}
