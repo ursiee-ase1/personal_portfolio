@@ -1,11 +1,12 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 class Profile(models.Model):
     name = models.CharField(max_length=200)
     tagline = models.CharField(max_length=300)
     short_bio = models.TextField(max_length=500)
     bio = models.TextField()
-    profile_image = models.ImageField(upload_to='profile/', blank=True, null=True)
+    profile_image = CloudinaryField('image', blank=True, null=True)
     resume = models.FileField(upload_to='resumes/', blank=True, null=True)
     email = models.EmailField()
     phone = models.CharField(max_length=20, blank=True)
@@ -38,7 +39,7 @@ class Service(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    image = models.ImageField(upload_to='projects/', blank=True, null=True)
+    image = CloudinaryField('image', blank=True, null=True)
     link = models.URLField(blank=True)
     github_link = models.URLField(blank=True)
     technologies = models.CharField(max_length=500, blank=True, help_text="Comma-separated list")
