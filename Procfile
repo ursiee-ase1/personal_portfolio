@@ -1,3 +1,2 @@
-release: python manage.py migrate && python manage.py collectstatic --noinput
-web: gunicorn portfolio_project.wsgi --log-file -
-
+release: mkdir -p staticfiles && python manage.py migrate && python manage.py collectstatic --noinput
+web: python -m gunicorn portfolio_project.wsgi --log-file -
