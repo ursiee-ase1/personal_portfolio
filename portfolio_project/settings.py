@@ -90,7 +90,7 @@ STORAGES = {
         'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
     },
     'staticfiles': {
-        'BACKEND': 'whitenoise.storageStaticFilesStorage',
+        'BACKEND': 'whitenoise.storage.StaticFilesStorage',
     },
 }
 
