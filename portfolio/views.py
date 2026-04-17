@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 from .models import Profile, Service, Project, Skill, Testimonial, Education, Certification
 from .forms import ContactForm
 
@@ -66,7 +68,14 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
+            contact = form.save()
+            send_mail(
+                subject=f"Portfolio Contact: {contact.subject}",
+                message=f"From: {contact.name} <{contact.email}>\n\n{contact.message}",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.EMAIL_HOST_USER],  
+                fail_silently=False,
+            )
             messages.success(request, 'Thank you for your message! I will get back to you soon.')
             return redirect('contact')
         else:
