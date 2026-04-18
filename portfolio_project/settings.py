@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'web-production-c30fd.up.railway.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'ursula-aseye-amoaku.up.railway.app']
 
 INSTALLED_APPS = [
     'cloudinary_storage',
