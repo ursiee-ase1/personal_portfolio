@@ -94,7 +94,7 @@ STORAGES = {
     },
 }
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompresseStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL'),
