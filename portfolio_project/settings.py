@@ -109,3 +109,5 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+CSRF_TRUSTED_ORIGINS = ['https://ursula-aseye-amoaku.up.railway.app']
