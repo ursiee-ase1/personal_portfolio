@@ -96,9 +96,7 @@ STORAGES = {
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-CLOUDINARY_STORAGE = {
-    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL'),
-}
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
